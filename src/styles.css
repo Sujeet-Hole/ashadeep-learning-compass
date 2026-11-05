@@ -338,6 +338,75 @@
     animation-name: slide-in-right;
   }
 
+  /* Soft pulsing ring behind the floating WhatsApp button */
+  @keyframes wa-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    100% {
+      transform: scale(1.75);
+      opacity: 0;
+    }
+  }
+
+  .wa-float::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: #25d366;
+    z-index: -1;
+    animation: wa-pulse 2.2s ease-out infinite;
+  }
+
+  /* Gentle float for decorative hero / founder badges */
+  @keyframes float-y {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .anim-float {
+    animation: float-y 4.5s ease-in-out infinite;
+  }
+
+  /* Slow pan on the hero photo */
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.04);
+    }
+    to {
+      transform: scale(1.12);
+    }
+  }
+
+  .anim-hero-zoom {
+    animation: hero-zoom 14s ease-in-out infinite alternate;
+  }
+
+  /* Endless horizontal scroll (testimonials marquee) */
+  @keyframes marquee-x {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .anim-marquee {
+    animation: marquee-x 55s linear infinite;
+  }
+
+  .anim-marquee:hover {
+    animation-play-state: paused;
+  }
+
   /* Respect users who prefer reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .reveal {
@@ -350,6 +419,13 @@
     .anim-slide-left,
     .anim-slide-right {
       opacity: 1 !important;
+      animation: none !important;
+    }
+
+    .wa-float::before,
+    .anim-float,
+    .anim-hero-zoom,
+    .anim-marquee {
       animation: none !important;
     }
   }

@@ -1,5 +1,5 @@
 // Course detail page: one reusable template rendered for every course from src/data/courses.ts.
-// Order: overview hero, about, what you'll learn, skills, tools, curriculum, practical work and
+// Order: overview hero, about, what you'll learn, skills, tools, practical work and
 // outcomes, course information (sidebar on desktop), FAQ, closing CTA. Sections whose data is
 // missing (tools, practical work, duration, ...) are simply not rendered.
 //
@@ -29,13 +29,7 @@ import { SafeImage } from "@/components/SafeImage";
 import { Reveal } from "@/components/Reveal";
 import { CtaBand } from "@/components/CtaBand";
 import { FaqSection } from "@/components/Faq";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { getCategory, getCourse, getCourseFaqs, getCourseModules } from "@/data/courses";
+import { getCategory, getCourse, getCourseFaqs } from "@/data/courses";
 import { CONTACT } from "@/data/site";
 
 export const Route = createFileRoute("/courses/$slug")({
@@ -114,7 +108,6 @@ function CourseDetailPage() {
 
   const Icon = course.icon;
   const category = getCategory(course.category);
-  const modules = getCourseModules(course);
   const faqs = getCourseFaqs(course);
   const enquire = { course: course.title };
 
@@ -170,16 +163,10 @@ function CourseDetailPage() {
                 Enquire Now
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              {modules.length > 0 ? (
-                <a href="#curriculum" className="btn-outline-white">
-                  View Curriculum
-                </a>
-              ) : (
-                <a href={CONTACT.phoneHref} className="btn-outline-white">
-                  <Phone className="h-4 w-4" aria-hidden />
-                  Call Us
-                </a>
-              )}
+              <a href={CONTACT.phoneHref} className="btn-outline-white">
+                <Phone className="h-4 w-4" aria-hidden />
+                Call Us
+              </a>
             </div>
           </div>
 
@@ -200,13 +187,13 @@ function CourseDetailPage() {
             <section aria-labelledby="about-title">
               <div className="grid items-start gap-6 md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] md:gap-8">
                 <div
-                  className={`relative mx-auto aspect-[1200/1140] w-full max-w-sm overflow-hidden rounded-3xl shadow-xl shadow-navy/10 md:max-w-none ${course.tint}`}
+                  className={`relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-3xl shadow-xl shadow-navy/10 md:max-w-none ${course.tint}`}
                 >
                   <SafeImage
                     src={course.image}
                     alt={course.imageAlt}
-                    width={1200}
-                    height={1140}
+                    width={1000}
+                    height={1000}
                     decoding="async"
                     className="h-full w-full object-cover"
                   />
@@ -221,7 +208,7 @@ function CourseDetailPage() {
                   {course.learn.length === 0 && (
                     <div className="mt-5 rounded-2xl bg-tint p-4 sm:p-5">
                       <p className="text-sm font-semibold text-navy">
-                        Detailed syllabus, duration and fees are shared by our team.
+                        Duration, batch timings and fees are shared by our team.
                       </p>
                       <Link
                         to="/contact"
@@ -300,78 +287,9 @@ function CourseDetailPage() {
             </Reveal>
           )}
 
-          {/* Curriculum */}
-          {modules.length > 0 && (
-            <Reveal direction="up">
-              <section
-                id="curriculum"
-                aria-labelledby="curriculum-title"
-                className="scroll-mt-24 sm:scroll-mt-28"
-              >
-                <BlockTitle id="curriculum-title" icon={Layers}>
-                  Course Curriculum
-                </BlockTitle>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  Topics covered in {course.title}. Expand a topic to see what it includes.
-                </p>
-                <Accordion
-                  type="single"
-                  collapsible
-                  defaultValue="topic-0"
-                  className="mt-5 space-y-3"
-                >
-                  {modules.map((mod, i) => (
-                    <AccordionItem
-                      key={mod.title}
-                      value={`topic-${i}`}
-                      className="rounded-2xl border border-border bg-white px-4 shadow-sm transition-colors data-[state=open]:border-brand/40 data-[state=open]:bg-tint/50 sm:px-5"
-                    >
-                      <AccordionTrigger className="min-h-12 gap-3 py-3 text-sm font-semibold text-navy hover:no-underline sm:text-base">
-                        <span className="flex min-w-0 items-center gap-3">
-                          <span className="icon-circle h-8 w-8 bg-tint text-xs font-bold text-brand">
-                            {i + 1}
-                          </span>
-                          <span className="min-w-0 break-words">{mod.title}</span>
-                        </span>
-                      </AccordionTrigger>
-                      <AccordionContent className="pl-11 text-sm text-navy/80">
-                        {mod.topics.length > 0 ? (
-                          <>
-                            <p className="text-xs font-semibold text-muted-foreground">
-                              This topic includes
-                            </p>
-                            <ul className="mt-2 flex flex-wrap gap-2">
-                              {mod.topics.map((topic) => (
-                                <li key={topic} className="chip">
-                                  {topic}
-                                </li>
-                              ))}
-                            </ul>
-                          </>
-                        ) : (
-                          <p>
-                            Part of the {course.title} course.{" "}
-                            <Link
-                              to="/contact"
-                              search={enquire}
-                              className="font-semibold text-brand underline-offset-2 hover:underline"
-                            >
-                              Ask our team
-                            </Link>{" "}
-                            for the detailed lesson plan.
-                          </p>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </section>
-            </Reveal>
-          )}
-
           {/* Practical work + outcomes */}
-          {course.outcomes.length > 0 ||
-            ((course.practical?.length ?? 0) > 0 && (
+          {(course.outcomes.length > 0 || (course.practical?.length ?? 0) > 0) && (
+            <>
               <Reveal direction="up">
                 <section aria-labelledby="outcomes-title">
                   <BlockTitle id="outcomes-title" icon={GraduationCap}>
@@ -425,7 +343,8 @@ function CourseDetailPage() {
                   </div>
                 </section>
               </Reveal>
-            ))}
+            </>
+          )}
         </div>
 
         {/* Course information: sticky sidebar on desktop, a normal section on mobile */}

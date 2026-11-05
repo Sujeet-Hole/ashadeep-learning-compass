@@ -13,7 +13,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/Header";
-import { Footer, WhatsAppFloat } from "@/components/Footer";
+import { Footer } from "@/components/Footer";
+import { FloatingActions } from "@/components/FloatingActions";
 
 function NotFoundComponent() {
   return (
@@ -137,7 +138,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
-        <WhatsAppFloat />
+        <FloatingActions />
       </div>
     </QueryClientProvider>
   );

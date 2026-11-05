@@ -4,10 +4,11 @@
 import type { CSSProperties } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Award, BadgeCheck, Laptop, Users, type LucideIcon } from "lucide-react";
-import { SafeImage } from "@/components/SafeImage";
+import { ReviewCard } from "@/components/ReviewCard";
 import { Reveal } from "@/components/Reveal";
 import { CtaBand } from "@/components/CtaBand";
 import { FaqSection } from "@/components/Faq";
+import { GoogleRating } from "@/components/GoogleRating";
 import { CourseCard } from "@/components/courses/CourseCard";
 import { CATEGORIES_IN_USE, COURSES, FEATURED_COURSES } from "@/data/courses";
 import { HOME_FAQS } from "@/data/faqs";
@@ -54,20 +55,37 @@ function HomePage() {
   return (
     <>
       {/* ---- Hero: fills the first screen on laptops and phones ---- */}
-      <section className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-navy text-white sm:min-h-[min(calc(100svh-6rem),44rem)]">
-        <img
-          src={IMAGES.hero}
-          alt="Smiling young student learning at a computer in the Ashadeep lab"
-          width={1920}
-          height={1080}
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-55"
-          loading="eager"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/20" />
+      <section className="relative flex items-center overflow-hidden bg-navy text-white lg:min-h-[33.4vw]">
+        {/* Hero banner: navy space on the left for the headline, student at a laptop on the right */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src={IMAGES.hero}
+            alt="Smiling student working on a laptop in a computer lab"
+            width={2172}
+            height={724}
+            className="anim-hero-zoom absolute left-0 top-0 h-full w-full object-cover object-[68%_center] opacity-60 lg:h-auto lg:animate-none lg:object-top lg:opacity-100"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/60 to-navy/25 lg:hidden" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-navy via-navy/70 to-transparent lg:hidden" />
+        <div className="absolute inset-x-0 top-0 hidden aspect-[2172/724] bg-gradient-to-t from-navy from-0% via-transparent via-35% to-transparent lg:block" />
 
-        <div className="container-site relative py-12 sm:py-16 lg:py-20">
+        {/* Floating badge (desktop) */}
+        <div className="anim-float pointer-events-none absolute right-[6%] top-[14%] hidden items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 text-navy shadow-2xl shadow-navy/40 lg:flex">
+          <span className="icon-circle h-10 w-10 bg-tint text-brand">
+            <BadgeCheck className="h-5 w-5" aria-hidden />
+          </span>
+          <span className="leading-tight">
+            <span className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Official Partner
+            </span>
+            <span className="block text-sm font-extrabold">MKCL</span>
+          </span>
+        </div>
+
+        <div className="container-site relative py-10 sm:py-12 lg:py-12">
           <p
             className="anim-rise inline-flex max-w-full rounded-full border border-brand/50 bg-brand/15 px-4 py-1.5 text-center text-[10px] font-semibold uppercase tracking-widest text-brand-glow sm:text-xs"
             style={animDelay(0)}
@@ -76,7 +94,7 @@ function HomePage() {
           </p>
 
           <h1
-            className="anim-rise mt-6 max-w-3xl font-extrabold leading-[1.1] tracking-tight [font-size:clamp(2.1rem,1.4rem+3.4vw,3.75rem)]"
+            className="anim-rise mt-5 max-w-3xl font-extrabold leading-[1.1] tracking-tight [font-size:clamp(2.1rem,1.4rem+3vw,3.4rem)]"
             style={animDelay(150)}
           >
             Learn Today.
@@ -85,7 +103,7 @@ function HomePage() {
           </h1>
 
           <p
-            className="anim-rise mt-5 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base"
+            className="anim-rise mt-4 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base"
             style={animDelay(300)}
           >
             A trusted destination for computer education and professional skill development in
@@ -93,7 +111,7 @@ function HomePage() {
             skills for education, employment and career growth.
           </p>
 
-          <div className="anim-rise mt-8 flex flex-col gap-3 sm:flex-row" style={animDelay(450)}>
+          <div className="anim-rise mt-6 flex flex-col gap-3 sm:flex-row" style={animDelay(450)}>
             <Link to="/courses" className="btn-primary">
               Explore Our Courses
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -104,22 +122,26 @@ function HomePage() {
             </Link>
           </div>
 
-          {/* Floating highlights card */}
-          <Reveal delay={200} direction="zoom" className="mt-12 lg:mt-16">
-            <div className="grid max-w-xl grid-cols-2 gap-4 rounded-3xl bg-white p-5 text-navy shadow-2xl shadow-navy/30 sm:p-6">
-              {HIGHLIGHTS.map((item) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  <span className="icon-circle h-11 w-11 bg-tint text-brand">
-                    <item.icon className="h-5 w-5" aria-hidden />
-                  </span>
-                  <span className="text-xs font-semibold leading-snug sm:text-sm">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <Reveal delay={150} direction="up" className="mt-5">
+            <GoogleRating variant="dark" />
           </Reveal>
         </div>
+      </section>
+
+      {/* ---- Highlights strip: overlaps the bottom of the hero ---- */}
+      <section aria-label="Why Ashadeep" className="container-site relative z-10 -mt-6 lg:-mt-8">
+        <Reveal delay={100} direction="up">
+          <div className="grid grid-cols-2 gap-4 rounded-3xl bg-white p-4 text-navy shadow-2xl shadow-navy/20 sm:p-5 lg:grid-cols-4">
+            {HIGHLIGHTS.map((item) => (
+              <div key={item.label} className="flex items-center gap-3">
+                <span className="icon-circle h-11 w-11 shrink-0 bg-tint text-brand">
+                  <item.icon className="h-5 w-5" aria-hidden />
+                </span>
+                <span className="text-xs font-semibold leading-snug sm:text-sm">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </section>
 
       {/* ---- Introduction ---- */}
@@ -131,9 +153,9 @@ function HomePage() {
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
               Ashadeep Computer Institute helps students and aspiring professionals in Bhandup,
-              Mumbai build practical, career-oriented computer skills. Our courses range from
-              programming and design to accounting, analytics and digital safety, taught through
-              practical, skill-based learning.
+              Mumbai build practical, career-oriented computer skills. Our courses cover
+              MS-CIT, full stack programming, graphic designing and digital marketing, taught
+              through practical, skill-based learning.
             </p>
             <Link
               to="/about"
@@ -179,7 +201,7 @@ function HomePage() {
               Pick an area and see the courses inside it.
             </p>
           </Reveal>
-          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
             {CATEGORIES_IN_USE.map((cat, i) => {
               const count = COURSES.filter((c) => c.category === cat.id).length;
               return (
@@ -232,7 +254,7 @@ function HomePage() {
               </Link>
             </div>
           </Reveal>
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {FEATURED_COURSES.map((course, i) => (
               <li key={course.slug}>
                 <Reveal delay={i * 80} direction="up" className="h-full">
@@ -301,6 +323,7 @@ function HomePage() {
               <h2 id="voices-title" className="section-title">
                 What Our <span className="text-brand">Students Say</span>
               </h2>
+              <GoogleRating />
               <Link
                 to="/testimonials"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
@@ -313,29 +336,8 @@ function HomePage() {
           <ul className="mt-6 grid gap-5 md:grid-cols-3">
             {TESTIMONIALS.slice(0, 3).map((t, i) => (
               <li key={t.name}>
-                <Reveal delay={i * 80} direction="up" className="h-full">
-                  <figure className="flex h-full flex-col rounded-3xl bg-white p-5 shadow-sm sm:p-6">
-                    <blockquote className="flex-1 text-sm leading-relaxed text-navy/85">
-                      “{t.quote}”
-                    </blockquote>
-                    <figcaption className="mt-4 flex items-center gap-3">
-                      <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-tint text-sm font-bold text-brand">
-                        {t.name.charAt(0)}
-                        <SafeImage
-                          src={t.photo}
-                          alt=""
-                          width={200}
-                          height={200}
-                          loading="lazy"
-                          className="absolute inset-0 h-full w-full object-cover"
-                        />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block text-sm font-bold text-navy">{t.name}</span>
-                        <span className="block text-xs text-muted-foreground">{t.course}</span>
-                      </span>
-                    </figcaption>
-                  </figure>
+                <Reveal delay={i * 100} direction={i === 0 ? "left" : i === 2 ? "right" : "up"} className="h-full">
+                  <ReviewCard review={t} />
                 </Reveal>
               </li>
             ))}

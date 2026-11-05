@@ -7,7 +7,7 @@ import { X } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { Reveal, type RevealDirection } from "@/components/Reveal";
 import { CtaBand } from "@/components/CtaBand";
-import { GALLERY, GALLERY_FILTERS, type GalleryPhoto } from "@/data/site";
+import { CONTACT, GALLERY, GALLERY_FILTERS, type GalleryPhoto } from "@/data/site";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -90,7 +90,7 @@ function GalleryPage() {
         {/* Photo grid — every photo uses the same 4:3 frame */}
         <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {photos.map((photo, i) => (
-            <Reveal key={photo.src} delay={(i % 4) * 60} direction={directionFor(i)}>
+            <Reveal key={photo.src + photo.alt} delay={(i % 4) * 60} direction={directionFor(i)}>
               <button
                 type="button"
                 onClick={() => setLightbox(photo)}
@@ -103,7 +103,7 @@ function GalleryPage() {
                   loading="lazy"
                   width={1200}
                   height={900}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className={`h-full w-full transition-transform duration-300 group-hover:scale-105 ${photo.contain ? "bg-[#eaf4ff] object-contain" : "object-cover"}`}
                 />
               </button>
             </Reveal>
@@ -112,7 +112,7 @@ function GalleryPage() {
 
         <Reveal direction="up">
           <a
-            href="https://wa.me/919876543210"
+            href={CONTACT.instagram}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary mt-10 w-full justify-center sm:w-auto"
@@ -149,7 +149,7 @@ function GalleryPage() {
             <X className="h-6 w-6" aria-hidden />
           </button>
           <img
-            src={lightbox.src}
+            src={lightbox.full ?? lightbox.src}
             alt={lightbox.alt}
             className="max-h-[85vh] max-w-full rounded-2xl object-contain shadow-2xl"
             onClick={(e) => e.stopPropagation()}

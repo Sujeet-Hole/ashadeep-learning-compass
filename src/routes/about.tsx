@@ -9,6 +9,7 @@ import {
   BookOpen,
   GraduationCap,
   Laptop,
+  Quote,
   Target,
   ThumbsUp,
   Users,
@@ -18,7 +19,7 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { CtaBand } from "@/components/CtaBand";
 import { CATEGORIES_IN_USE, COURSES } from "@/data/courses";
-import { IMAGES, WHY_US } from "@/data/site";
+import { FOUNDER, IMAGES, WHY_US } from "@/data/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Empowering students through computer education for 15 years. 5000+ students trained, 20+ courses, official MKCL partner in Bhandup West, Mumbai.",
+          "Empowering students through computer education for 15 years. 5000+ students trained, official MKCL partner in Bhandup West, Mumbai.",
       },
       { property: "og:title", content: "About Us — Ashadeep Computer Institute" },
       {
@@ -46,7 +47,7 @@ export const Route = createFileRoute("/about")({
 const STATS: { icon: LucideIcon; value: string; label: string }[] = [
   { icon: GraduationCap, value: "5000+", label: "Students Trained" },
   { icon: Award, value: "15+", label: "Years of Experience" },
-  { icon: BookOpen, value: "20+", label: "Courses Available" },
+  { icon: BookOpen, value: String(COURSES.length), label: "Courses Available" },
   { icon: ThumbsUp, value: "95%", label: "Student Satisfaction" },
 ];
 
@@ -66,7 +67,7 @@ function AboutPage() {
           <Reveal direction="left">
             <img
               src={IMAGES.aboutClassroom}
-              alt="Classroom full of students learning on computers at Ashadeep Computer Institute"
+              alt="Team and students together in the Ashadeep Computer Institute computer lab"
               loading="lazy"
               width={1920}
               height={1080}
@@ -92,6 +93,94 @@ function AboutPage() {
         </div>
       </section>
 
+      {/* ---- Founder ---- */}
+      <section
+        aria-labelledby="founder-title"
+        className="relative overflow-hidden bg-navy text-white"
+      >
+        {/* Decorative background: soft glows and a dotted grid */}
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-brand/25 blur-3xl" />
+          <div className="absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-brand-glow/15 blur-3xl" />
+          <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(circle,#fff_1px,transparent_1px)] [background-size:24px_24px]" />
+        </div>
+
+        <div className="container-site section-y relative grid items-center gap-14 py-14 sm:py-16 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:gap-20 lg:py-20">
+          <Reveal direction="left">
+            <div className="relative mx-auto w-full max-w-sm pb-6">
+              {/* Offset outline frame */}
+              <div
+                aria-hidden
+                className="absolute -right-4 top-4 h-[calc(100%-1.5rem)] w-full rounded-[2rem] border-2 border-brand-glow/50"
+              />
+              <div className="relative overflow-hidden rounded-[2rem] bg-white shadow-2xl shadow-black/40">
+                <img
+                  src={FOUNDER.photo}
+                  alt={`${FOUNDER.name}, founder of Ashadeep Computer Institute`}
+                  width={1000}
+                  height={1000}
+                  loading="lazy"
+                  className="aspect-[4/5] w-full object-cover object-top"
+                />
+              </div>
+              {/* Floating name badge */}
+              <div className="anim-float absolute bottom-0 left-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 text-navy shadow-2xl shadow-black/30 sm:-left-6">
+                <span className="icon-circle h-10 w-10 bg-brand text-primary-foreground">
+                  <GraduationCap className="h-5 w-5" aria-hidden />
+                </span>
+                <span className="leading-tight">
+                  <span className="block text-sm font-extrabold">{FOUNDER.name}</span>
+                  <span className="block text-xs font-medium text-navy/60">Founder</span>
+                </span>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal direction="right" delay={100}>
+            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-glow">
+              <span className="h-px w-8 bg-brand-glow" aria-hidden />
+              Meet Our Founder
+            </p>
+            <h2
+              id="founder-title"
+              className="mt-3 font-extrabold tracking-tight [font-size:clamp(2rem,1.4rem+2.6vw,3.25rem)] leading-[1.1]"
+            >
+              {FOUNDER.name}
+            </h2>
+            <p className="mt-2 text-sm font-semibold text-brand-glow sm:text-base">{FOUNDER.role}</p>
+
+            <blockquote className="relative mt-6 rounded-2xl border-l-4 border-brand-glow bg-white/5 px-5 py-4 backdrop-blur-sm sm:px-6">
+              <Quote className="absolute right-4 top-3 h-7 w-7 text-brand-glow/30" aria-hidden />
+              <p className="pr-8 text-lg font-semibold italic leading-snug text-white sm:text-xl">
+                “{FOUNDER.quote}”
+              </p>
+            </blockquote>
+
+            {FOUNDER.bio.map((para) => (
+              <p key={para} className="mt-4 text-sm leading-relaxed text-white/80 sm:text-base">
+                {para}
+              </p>
+            ))}
+
+            <dl className="mt-7 grid max-w-sm grid-cols-2 gap-3">
+              {FOUNDER.highlights.map((h, i) => (
+                <Reveal key={h.label} direction="up" delay={200 + i * 90}>
+                  <div className="rounded-2xl border border-white/10 bg-white/10 p-3 text-center sm:p-4">
+                    <dd className="text-xl font-extrabold text-brand-glow sm:text-2xl">{h.value}</dd>
+                    <dt className="mt-0.5 text-[11px] font-medium text-white/70 sm:text-xs">{h.label}</dt>
+                  </div>
+                </Reveal>
+              ))}
+            </dl>
+
+            <Link to="/contact" search={{ course: "" }} className="btn-primary mt-8">
+              Talk to Our Team
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ---- Mission + approach ---- */}
       <section aria-label="Our mission and approach" className="bg-muted">
         <div className="container-site section-y grid gap-5 md:grid-cols-2">
@@ -111,7 +200,7 @@ function AboutPage() {
             <div className="h-full rounded-3xl bg-white p-6 shadow-sm sm:p-8">
               <img
                 src={IMAGES.teaching}
-                alt="Instructor guiding a smiling student during a practical session"
+                alt="Students working at their computers during a practical class"
                 width={1200}
                 height={900}
                 loading="lazy"
@@ -161,7 +250,7 @@ function AboutPage() {
             programs.
           </p>
         </Reveal>
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
           {CATEGORIES_IN_USE.map((cat, i) => (
             <li key={cat.id}>
               <Reveal delay={i * 60} direction="up" className="h-full">

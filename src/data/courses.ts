@@ -5,39 +5,17 @@
 // so nothing is ever shown as a placeholder fact. See CONTENT_REVIEW.md for the list of
 // facts we still need from the institute.
 
-import {
-  BarChart3,
-  BrainCircuit,
-  Briefcase,
-  Calculator,
-  Code2,
-  Database,
-  FileSpreadsheet,
-  Globe,
-  Landmark,
-  Megaphone,
-  Palette,
-  ShieldCheck,
-  type LucideIcon,
-} from "lucide-react";
+import { Code2, Megaphone, Monitor, Palette, type LucideIcon } from "lucide-react";
 import { CONTACT } from "@/data/site";
 
-// Course tiles: every image is 1200x1140 (same size and shape) so cards line up everywhere.
+// Course tiles: every image is 1000x1000 (same size and shape) so cards line up everywhere.
 import tileDigitalMarketing from "@/assets/courses/tile-digital-marketing.webp";
 import tileGraphicDesigning from "@/assets/courses/tile-graphic-designing.webp";
-import tileDataAnalytics from "@/assets/courses/tile-data-analytics.webp";
-import tileAdvancedExcel from "@/assets/courses/tile-advanced-excel.webp";
-import tilePython from "@/assets/courses/tile-python-programming.webp";
-import tileTally from "@/assets/courses/tile-tally-prime-gst.webp";
-import tileCybersecurity from "@/assets/courses/tile-cybersecurity.webp";
-import tileAccounting from "@/assets/courses/tile-accounting-office.webp";
-import tileDataScience from "@/assets/courses/tile-data-science.webp";
-import tileMachineLearning from "@/assets/courses/tile-machine-learning.webp";
-import tileWebDevelopment from "@/assets/courses/tile-web-development.webp";
-import tileBusinessAnalysis from "@/assets/courses/tile-business-analysis.webp";
+import tileFullStack from "@/assets/courses/tile-full-stack-programming.webp";
+import tileMsCit from "@/assets/courses/tile-ms-cit.webp";
 
 /** Course groupings used by the filter tabs. Only groups that contain courses are shown. */
-export type CategoryId = "it" | "design-marketing" | "accounting-office" | "data-business";
+export type CategoryId = "it" | "design-marketing";
 
 export interface CourseCategory {
   id: CategoryId;
@@ -50,7 +28,7 @@ export const CATEGORIES: CourseCategory[] = [
   {
     id: "it",
     label: "IT & Programming",
-    blurb: "Programming fundamentals and digital safety",
+    blurb: "Web programming and essential computer skills",
     icon: Code2,
   },
   {
@@ -58,18 +36,6 @@ export const CATEGORIES: CourseCategory[] = [
     label: "Design & Marketing",
     blurb: "Creative design and online business growth",
     icon: Palette,
-  },
-  {
-    id: "accounting-office",
-    label: "Accounting & Office",
-    blurb: "Spreadsheets, accounts and GST",
-    icon: Calculator,
-  },
-  {
-    id: "data-business",
-    label: "Data & Business",
-    blurb: "Data insights and business problem-solving",
-    icon: BarChart3,
   },
 ];
 
@@ -117,6 +83,116 @@ export interface Course {
 }
 
 export const COURSES: Course[] = [
+  {
+    slug: "graphic-designing",
+    title: "Graphic Designing",
+    description: "Creative design skills for branding and digital media",
+    tagline: "Turn creative ideas into professional designs for print and digital media.",
+    tint: "bg-tint-orange",
+    accent: "text-accent-orange",
+    icon: Palette,
+    learn: [
+      "Design Principles & Color Theory",
+      "Adobe Photoshop",
+      "Adobe Illustrator",
+      "Logo & Branding Design",
+      "Social Media Creative Design",
+      "Typography & Layout Design",
+      "Portfolio-Building Projects",
+    ],
+    who: [
+      "Students",
+      "Creative Enthusiasts",
+      "Job Seekers",
+      "Freelancers",
+      "Anyone interested in design",
+    ],
+    image: tileGraphicDesigning,
+    imageAlt:
+      "Graphic Designing course illustration: design monitor with a pen tool and colour palette",
+    category: "design-marketing",
+    featured: true,
+    overview:
+      "Learn the principles behind good design and apply them in professional design software. Topics include color theory, Adobe Photoshop, Adobe Illustrator, logo and branding design, social media creatives, and typography and layout, finishing with portfolio-building projects.",
+    skills: [
+      "Design Principles",
+      "Color Theory",
+      "Photoshop",
+      "Illustrator",
+      "Logo & Branding",
+      "Typography & Layout",
+    ],
+    outcomes: [
+      "Turn creative ideas into designs for print and digital media",
+      "Design logos and social media creatives",
+      "Build a portfolio through course projects",
+    ],
+    tools: ["Adobe Photoshop", "Adobe Illustrator"],
+    practical: ["Portfolio-Building Projects"],
+    faqs: [
+      {
+        q: "Which design software is covered?",
+        a: "The course topics include Adobe Photoshop and Adobe Illustrator.",
+      },
+    ],
+  },
+  {
+    slug: "full-stack-programming",
+    title: "Full Stack Programming",
+    description: "Build complete websites and web apps, from front end to back end",
+    tagline:
+      "Learn to build complete web applications: the screens users see, the server behind them and the database that stores the data.",
+    tint: "bg-tint-blue",
+    accent: "text-accent-blue",
+    icon: Code2,
+    learn: [
+      "HTML, CSS & JavaScript Fundamentals",
+      "Responsive Web Design",
+      "Front-End Development with React",
+      "Back-End Development with Node.js",
+      "Databases & Data Handling",
+      "REST APIs & Authentication",
+      "Git & GitHub",
+      "Real-World Projects & Deployment",
+    ],
+    who: [
+      "Students",
+      "Job Seekers",
+      "Working Professionals",
+      "Freelancers",
+      "Anyone interested in programming",
+    ],
+    image: tileFullStack,
+    imageAlt:
+      "Full Stack Programming course illustration: browser window, code terminal, database and API badge",
+    category: "it",
+    featured: true,
+    overview:
+      "Learn how a complete web application is built. The course starts with HTML, CSS and JavaScript, moves to responsive design and front-end development with React, then covers back-end development with Node.js, databases, REST APIs and authentication, and finishes with Git, GitHub and real-world projects that you deploy online.",
+    skills: [
+      "HTML & CSS",
+      "JavaScript",
+      "React",
+      "Node.js",
+      "Databases",
+      "REST APIs",
+      "Git & GitHub",
+    ],
+    outcomes: [
+      "Build responsive websites from scratch",
+      "Create front-end and back-end parts of a web application",
+      "Connect an app to a database through APIs",
+      "Deploy real-world projects online",
+    ],
+    tools: ["HTML", "CSS", "JavaScript", "React", "Node.js", "Git & GitHub"],
+    practical: ["Real-World Projects & Deployment"],
+    faqs: [
+      {
+        q: "Do I need coding experience before joining?",
+        a: "The course begins with HTML, CSS and JavaScript fundamentals. Please contact us and our team will advise whether your current background is a good fit.",
+      },
+    ],
+  },
   {
     slug: "digital-marketing",
     title: "Digital Marketing",
@@ -171,448 +247,52 @@ export const COURSES: Course[] = [
     ],
   },
   {
-    slug: "graphic-designing",
-    title: "Graphic Designing",
-    description: "Creative design skills for branding and digital media",
-    tagline: "Turn creative ideas into professional designs for print and digital media.",
-    tint: "bg-tint-orange",
-    accent: "text-accent-orange",
-    icon: Palette,
-    learn: [
-      "Design Principles & Color Theory",
-      "Adobe Photoshop",
-      "Adobe Illustrator",
-      "Logo & Branding Design",
-      "Social Media Creative Design",
-      "Typography & Layout Design",
-      "Portfolio-Building Projects",
-    ],
-    who: [
-      "Students",
-      "Creative Enthusiasts",
-      "Job Seekers",
-      "Freelancers",
-      "Anyone interested in design",
-    ],
-    image: tileGraphicDesigning,
-    imageAlt:
-      "Graphic Designing course illustration: design monitor with a pen tool and colour palette",
-    category: "design-marketing",
-    overview:
-      "Learn the principles behind good design and apply them in professional design software. Topics include color theory, Adobe Photoshop, Adobe Illustrator, logo and branding design, social media creatives, and typography and layout, finishing with portfolio-building projects.",
-    skills: [
-      "Design Principles",
-      "Color Theory",
-      "Photoshop",
-      "Illustrator",
-      "Logo & Branding",
-      "Typography & Layout",
-    ],
-    outcomes: [
-      "Turn creative ideas into designs for print and digital media",
-      "Design logos and social media creatives",
-      "Build a portfolio through course projects",
-    ],
-    tools: ["Adobe Photoshop", "Adobe Illustrator"],
-    practical: ["Portfolio-Building Projects"],
-    faqs: [
-      {
-        q: "Which design software is covered?",
-        a: "The course topics include Adobe Photoshop and Adobe Illustrator.",
-      },
-    ],
-  },
-  {
-    slug: "data-analytics",
-    title: "Data Analytics",
-    description: "Data analysis, visualization and reporting (Excel, Power BI)",
-    tagline: "Turn raw data into clear insights, dashboards and reports.",
+    slug: "ms-cit",
+    title: "MS-CIT",
+    description: "Official MKCL course: computer basics, MS Office and internet skills",
+    tagline:
+      "Build essential computer skills for study, work and everyday life with the MKCL MS-CIT course.",
     tint: "bg-tint-yellow",
     accent: "text-accent-yellow",
-    icon: BarChart3,
+    icon: Monitor,
     learn: [
-      "Introduction to Data Analytics",
-      "Data Collection & Cleaning",
-      "Excel for Data Analysis",
-      "Power BI Dashboards",
-      "Data Visualization Techniques",
-      "Statistical Basics",
-      "Analytical Reports & Case Studies",
+      "Computer Fundamentals",
+      "Windows & File Management",
+      "MS Word",
+      "MS Excel",
+      "MS PowerPoint",
+      "Internet & Email",
+      "Digital Awareness & Safety",
     ],
     who: [
       "Students",
-      "Working Professionals",
       "Job Seekers",
-      "Business Owners",
-      "Anyone interested in data",
+      "Working Professionals",
+      "Homemakers & Beginners",
+      "Anyone who wants to learn computers",
     ],
-    image: tileDataAnalytics,
+    image: tileMsCit,
     imageAlt:
-      "Data Analytics course illustration: bar chart with trend line and a magnifying glass",
-    category: "data-business",
-    overview:
-      "Turn raw data into clear insights. The course introduces data analytics, then covers data collection and cleaning, Excel for data analysis, Power BI dashboards, data visualization techniques and statistical basics, finishing with analytical reports and case studies.",
-    skills: [
-      "Data Cleaning",
-      "Excel Analysis",
-      "Power BI",
-      "Data Visualization",
-      "Statistics Basics",
-      "Reporting",
-    ],
-    outcomes: [
-      "Collect and clean data for analysis",
-      "Build dashboards in Power BI",
-      "Present findings in analytical reports",
-    ],
-    tools: ["Microsoft Excel", "Power BI"],
-    practical: ["Analytical Reports & Case Studies"],
-    faqs: [
-      {
-        q: "Which tools are used in Data Analytics?",
-        a: "The course topics include Excel for data analysis and Power BI dashboards.",
-      },
-    ],
-  },
-  {
-    slug: "advanced-excel",
-    title: "Advanced Excel",
-    description: "Formulas, PivotTables, reporting and dashboards",
-    tagline: "Master spreadsheets for reporting, analysis and professional dashboards.",
-    tint: "bg-tint-green",
-    accent: "text-accent-green",
-    icon: FileSpreadsheet,
-    learn: [
-      "Essential & Advanced Formulas",
-      "PivotTables & Pivot Charts",
-      "Data Cleaning & Formatting",
-      "Conditional Formatting",
-      "Charts & Interactive Dashboards",
-      "Lookup Functions (VLOOKUP, XLOOKUP)",
-      "Macros & Automation Basics",
-    ],
-    who: [
-      "Students",
-      "Working Professionals",
-      "Accountants & Office Staff",
-      "Job Seekers",
-      "Anyone who works with data",
-    ],
-    image: tileAdvancedExcel,
-    imageAlt:
-      "Advanced Excel course illustration: Excel logo with a spreadsheet and rising bar chart",
-    category: "accounting-office",
-    featured: true,
-    overview:
-      "Move beyond everyday spreadsheets. The course covers essential and advanced formulas, PivotTables and Pivot Charts, data cleaning and formatting, conditional formatting, charts and interactive dashboards, lookup functions such as VLOOKUP and XLOOKUP, and the basics of macros and automation.",
-    skills: [
-      "Formulas",
-      "PivotTables",
-      "Data Cleaning",
-      "Conditional Formatting",
-      "Dashboards",
-      "Lookup Functions",
-      "Macros",
-    ],
-    outcomes: [
-      "Build reports and analysis from raw data",
-      "Create charts and interactive dashboards",
-      "Use lookup functions such as VLOOKUP and XLOOKUP",
-    ],
-    tools: ["Microsoft Excel"],
-    faqs: [
-      {
-        q: "Which Excel features are covered?",
-        a: "Topics include essential and advanced formulas, PivotTables and Pivot Charts, lookup functions (VLOOKUP, XLOOKUP) and macros and automation basics.",
-      },
-    ],
-  },
-  {
-    slug: "python-programming",
-    title: "Python Programming",
-    description: "Programming fundamentals and practical applications",
-    tagline: "Start coding with Python, from fundamentals to practical applications.",
-    tint: "bg-tint-blue",
-    accent: "text-accent-blue",
-    icon: Code2,
-    learn: [
-      "Python Basics & Syntax",
-      "Data Types & Variables",
-      "Loops & Conditional Statements",
-      "Functions & Modules",
-      "Object-Oriented Programming",
-      "Working with Popular Libraries",
-      "Mini Projects & Assignments",
-    ],
-    who: [
-      "Students",
-      "Beginners in Coding",
-      "Job Seekers",
-      "Working Professionals",
-      "Anyone interested in programming",
-    ],
-    image: tilePython,
-    imageAlt: "Python Programming course illustration: Python logo beside a code editor",
+      "MS-CIT course illustration: computer showing Word, Excel and PowerPoint icons with a certificate",
     category: "it",
     featured: true,
     overview:
-      "Start coding with Python. The course moves from basics and syntax through data types, loops, conditional statements, functions and modules to object-oriented programming and popular libraries, with mini projects and assignments to practise each step.",
+      "MS-CIT is an MKCL course that takes you from computer basics to confident everyday use. It covers computer fundamentals, Windows and file management, MS Word, MS Excel and MS PowerPoint, using the internet and email, and staying aware and safe online. Ashadeep Computer Institute is an official MKCL partner.",
     skills: [
-      "Python Syntax",
-      "Data Types",
-      "Loops & Conditions",
-      "Functions & Modules",
-      "OOP",
-      "Python Libraries",
+      "Computer Basics",
+      "MS Word",
+      "MS Excel",
+      "MS PowerPoint",
+      "Internet & Email",
     ],
     outcomes: [
-      "Write Python programs using core syntax, data types and control flow",
-      "Organise code with functions, modules and object-oriented programming",
-      "Use popular libraries in mini projects and assignments",
+      "Use a computer confidently for study and work",
+      "Create documents, spreadsheets and presentations",
+      "Browse the internet and use email safely",
     ],
-    tools: ["Python"],
-    practical: ["Mini Projects & Assignments"],
-    faqs: [
-      {
-        q: "Is Python Programming suitable for beginners?",
-        a: "Yes. Beginners in coding are one of the learner groups this course is designed for. If you are unsure about your starting point, our team can advise you.",
-      },
-    ],
-  },
-  {
-    slug: "tally-prime-gst",
-    title: "Tally Prime + GST",
-    description: "Accounting, GST, invoicing and financial reporting",
-    tagline: "Handle accounting, GST billing and financial reporting with confidence.",
-    tint: "bg-tint-peach",
-    accent: "text-accent-peach",
-    icon: Calculator,
-    learn: [
-      "Tally Prime Fundamentals",
-      "Accounting & Voucher Entries",
-      "GST Concepts & Tax Rates",
-      "GST Billing & Invoicing",
-      "Inventory Management",
-      "Payroll & TDS Basics",
-      "Financial Reports & Balance Sheets",
-    ],
-    who: [
-      "Students",
-      "Accounting Aspirants",
-      "Business Owners",
-      "Job Seekers",
-      "Anyone interested in accounting",
-    ],
-    image: tileTally,
-    imageAlt:
-      "Tally Prime and GST course illustration: Tally on a monitor with a GST sheet, rupee coin and calculator",
-    category: "accounting-office",
-    overview:
-      "Learn to keep accounts and handle GST billing in Tally Prime. The course covers Tally Prime fundamentals, voucher entries, GST concepts and tax rates, GST billing and invoicing, inventory management, payroll and TDS basics, and financial reports such as balance sheets.",
-    skills: [
-      "Tally Prime",
-      "Voucher Entries",
-      "GST",
-      "Invoicing",
-      "Inventory",
-      "Payroll & TDS",
-      "Financial Reports",
-    ],
-    outcomes: [
-      "Record accounting transactions with voucher entries",
-      "Prepare GST bills and invoices",
-      "Generate financial reports and balance sheets",
-    ],
-    tools: ["Tally Prime"],
-    faqs: [
-      {
-        q: "Is GST covered in this course?",
-        a: "Yes. GST Concepts & Tax Rates and GST Billing & Invoicing are part of the course topics, alongside payroll and TDS basics.",
-      },
-    ],
-  },
-  {
-    slug: "cybersecurity",
-    title: "Cybersecurity",
-    description: "Networking, digital safety and security practices",
-    tagline: "Learn how to stay safe online and protect systems from threats.",
-    tint: "bg-tint-sky",
-    accent: "text-accent-sky",
-    icon: ShieldCheck,
-    learn: [
-      "Networking Fundamentals",
-      "Types of Cyber Threats",
-      "Password & Data Security",
-      "Safe Browsing & Email Safety",
-      "Firewalls & Security Tools",
-      "Cyber Laws & Ethics",
-      "Practical Security Labs",
-    ],
-    who: [
-      "Students",
-      "Job Seekers",
-      "Working Professionals",
-      "Internet Users & Businesses",
-      "Anyone interested in digital safety",
-    ],
-    image: tileCybersecurity,
-    imageAlt: "Cyber Security course illustration: shield with a padlock and circuit lines",
-    category: "it",
-    overview:
-      "Understand how to stay safe online and protect systems from threats. The course covers networking fundamentals, types of cyber threats, password and data security, safe browsing and email safety, firewalls and security tools, and cyber laws and ethics, with practical security labs.",
-    skills: [
-      "Networking",
-      "Cyber Threats",
-      "Password & Data Security",
-      "Safe Browsing",
-      "Firewalls",
-      "Cyber Laws & Ethics",
-    ],
-    outcomes: [
-      "Understand networking fundamentals and common cyber threats",
-      "Protect passwords, data and email",
-      "Explain cyber laws and ethics",
-    ],
-    practical: ["Practical Security Labs"],
-    faqs: [
-      {
-        q: "Does the course include hands-on practice?",
-        a: "Yes. Practical Security Labs are part of the course topics.",
-      },
-    ],
-  },
-  {
-    slug: "accounting-office",
-    title: "Accounting & Office",
-    description: "Accounting and office skills at Ashadeep Computer Institute",
-    tagline: "Ask our team for the syllabus, duration and fees.",
-    tint: "bg-tint-sky",
-    accent: "text-accent-sky",
-    icon: Landmark,
-    // Syllabus not provided yet: the page hides the topic, skills and curriculum sections
-    // until `learn`, `who`, `skills` and `outcomes` are filled in.
-    learn: [],
-    who: [],
-    image: tileAccounting,
-    imageAlt:
-      "Accounting and Office course illustration: coins, calculator, report and charts with a rupee symbol",
-    category: "accounting-office",
-    overview:
-      "Accounting & Office is available at Ashadeep Computer Institute. Our team will share the detailed syllabus, duration, batch timings and fees when you enquire.",
-    skills: [],
-    outcomes: [],
-  },
-  {
-    slug: "data-science",
-    title: "Data Science",
-    description: "Data Science training at Ashadeep Computer Institute",
-    tagline: "Ask our team for the syllabus, duration and fees.",
-    tint: "bg-tint-pink",
-    accent: "text-accent-pink",
-    icon: Database,
-    // Syllabus not provided yet: the page hides the topic, skills and curriculum sections
-    // until `learn`, `who`, `skills` and `outcomes` are filled in.
-    learn: [],
-    who: [],
-    image: tileDataScience,
-    imageAlt: "Data Science course illustration: database, analytics screen and bar chart",
-    category: "data-business",
-    overview:
-      "Data Science is available at Ashadeep Computer Institute. Our team will share the detailed syllabus, duration, batch timings and fees when you enquire.",
-    skills: [],
-    outcomes: [],
-  },
-  {
-    slug: "machine-learning",
-    title: "Machine Learning",
-    description: "Machine Learning training at Ashadeep Computer Institute",
-    tagline: "Ask our team for the syllabus, duration and fees.",
-    tint: "bg-tint-blue",
-    accent: "text-accent-blue",
-    icon: BrainCircuit,
-    // Syllabus not provided yet: the page hides the topic, skills and curriculum sections
-    // until `learn`, `who`, `skills` and `outcomes` are filled in.
-    learn: [],
-    who: [],
-    image: tileMachineLearning,
-    imageAlt: "Machine Learning course illustration: circuit brain with a laptop showing a chart",
-    category: "data-business",
-    overview:
-      "Machine Learning is available at Ashadeep Computer Institute. Our team will share the detailed syllabus, duration, batch timings and fees when you enquire.",
-    skills: [],
-    outcomes: [],
-  },
-  {
-    slug: "web-development",
-    title: "Web Development",
-    description: "Web Development training at Ashadeep Computer Institute",
-    tagline: "Ask our team for the syllabus, duration and fees.",
-    tint: "bg-tint-orange",
-    accent: "text-accent-orange",
-    icon: Globe,
-    // Syllabus not provided yet: the page hides the topic, skills and curriculum sections
-    // until `learn`, `who`, `skills` and `outcomes` are filled in.
-    learn: [],
-    who: [],
-    image: tileWebDevelopment,
-    imageAlt:
-      "Web Development course illustration: code monitor with HTML, CSS and JavaScript badges",
-    category: "it",
-    overview:
-      "Web Development is available at Ashadeep Computer Institute. Our team will share the detailed syllabus, duration, batch timings and fees when you enquire.",
-    skills: [],
-    outcomes: [],
-  },
-  {
-    slug: "business-analysis",
-    title: "Business Analysis",
-    description: "Process analysis, documentation and problem-solving",
-    tagline: "Learn to analyse business processes and solve real business problems.",
-    tint: "bg-tint-amber",
-    accent: "text-accent-amber",
-    icon: Briefcase,
-    learn: [
-      "Introduction to Business Analysis",
-      "Requirement Gathering",
-      "Process Mapping & Documentation",
-      "SWOT & Gap Analysis",
-      "Data-Driven Decision Making",
-      "Communication & Reporting",
-      "Real Business Case Studies",
-    ],
-    who: [
-      "Students",
-      "Working Professionals",
-      "Job Seekers",
-      "Team Leads & Managers",
-      "Anyone interested in business problem-solving",
-    ],
-    image: tileBusinessAnalysis,
-    imageAlt:
-      "Business Analysis course illustration: clipboard with charts, a light bulb and a pie chart",
-    category: "data-business",
-    overview:
-      "Learn to analyse business processes and solve real business problems. The course covers requirement gathering, process mapping and documentation, SWOT and gap analysis, data-driven decision making, and communication and reporting, with real business case studies.",
-    skills: [
-      "Requirement Gathering",
-      "Process Mapping",
-      "Documentation",
-      "SWOT & Gap Analysis",
-      "Decision Making",
-      "Business Communication",
-    ],
-    outcomes: [
-      "Gather and document business requirements",
-      "Map processes and run SWOT and gap analysis",
-      "Communicate findings through clear reporting",
-    ],
-    practical: ["Real Business Case Studies"],
-    faqs: [
-      {
-        q: "Are business case studies included?",
-        a: "Yes. Real Business Case Studies are part of the course topics.",
-      },
-    ],
+    tools: ["MS Word", "MS Excel", "MS PowerPoint"],
+    certification:
+      "MS-CIT is an MKCL course, and Ashadeep Computer Institute is an official MKCL partner. Please contact us for certificate details.",
   },
 ];
 
@@ -628,39 +308,6 @@ export const CATEGORIES_IN_USE = CATEGORIES.filter((cat) =>
 export const FEATURED_COURSES = COURSES.filter((c) => c.featured);
 
 /* --------------------------- Derived course content --------------------------- */
-
-export interface CourseModule {
-  title: string;
-  /** Sub-topics named inside the topic title itself, e.g. "Lookup Functions (VLOOKUP, XLOOKUP)". */
-  topics: string[];
-}
-
-/** "A & B" titles that read as one idea and must not be split. */
-const KEEP_WHOLE = [/essential & advanced/i, /swot & gap/i];
-
-/**
- * Curriculum topics: one per entry in `learn`. Sub-topics are only taken from wording that is
- * already in the title (text in brackets, or "A & B"), so no lessons are invented. Add a real
- * lesson-level syllabus later and it can replace this function.
- */
-export function getCourseModules(course: Course): CourseModule[] {
-  return course.learn.map((item) => {
-    const bracket = item.match(/^(.*?)\s*\((.+)\)\s*$/);
-    if (bracket?.[1] && bracket[2]) {
-      return {
-        title: bracket[1],
-        topics: bracket[2]
-          .split(/,|&/)
-          .map((t) => t.trim())
-          .filter(Boolean),
-      };
-    }
-    if (item.includes(" & ") && !KEEP_WHOLE.some((re) => re.test(item))) {
-      return { title: item, topics: item.split(" & ").map((t) => t.trim()) };
-    }
-    return { title: item, topics: [] };
-  });
-}
 
 const joinList = (items: string[]) =>
   items.length < 2

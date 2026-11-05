@@ -90,11 +90,11 @@ function MkclPage() {
           <div className="mt-10 grid items-stretch gap-5 lg:grid-cols-2">
             <img
               src={IMAGES.ceremony}
-              alt="Students receiving their course completion certificate during a small ceremony"
-              width={1200}
-              height={900}
+              alt="Ashadeep Computer Institute admission poster: GCC-TBC typing course and MS-CIT with MKCL"
+              width={1092}
+              height={1092}
               loading="lazy"
-              className="aspect-[4/3] w-full rounded-3xl object-cover shadow-xl shadow-navy/10 lg:h-full"
+              className="mx-auto aspect-square w-full max-w-xl rounded-3xl object-cover shadow-xl shadow-navy/10"
             />
             <ul className="grid content-center gap-3 rounded-3xl bg-tint p-6 sm:p-8">
               {CHECKLIST.map((item) => (

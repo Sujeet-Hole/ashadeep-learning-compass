@@ -11,6 +11,7 @@ import {
   Mail,
   MapPin,
   MessageCircle,
+  Navigation,
   Phone,
   type LucideIcon,
 } from "lucide-react";
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Visit Ashadeep Computer Institute in Bhandup West, Mumbai. Call +91 98765 43210 or send an enquiry about any of our computer courses.",
+          "Visit Ashadeep Computer Institute in Bhandup West, Mumbai. Call +91 98701 43014 or send an enquiry about any of our computer courses.",
       },
       { property: "og:title", content: "Contact Us — Ashadeep Computer Institute" },
       {
@@ -56,8 +57,8 @@ const INFO: {
   external?: boolean;
   wide?: boolean;
 }[] = [
-  { icon: MapPin, label: "Visit Us", value: CONTACT.address, wide: true },
-  { icon: Phone, label: "Call Us", value: CONTACT.phoneDisplay, href: CONTACT.phoneHref },
+  { icon: MapPin, label: "Visit Us", value: CONTACT.address, href: CONTACT.mapLink, external: true, wide: true },
+  { icon: Phone, label: "Call Us", value: `${CONTACT.phoneDisplay}  ·  ${CONTACT.landlineDisplay}`, href: CONTACT.phoneHref },
   {
     icon: MessageCircle,
     label: "WhatsApp",
@@ -159,6 +160,16 @@ function ContactPage() {
               className="h-64 w-full rounded-3xl border-0 shadow-lg shadow-navy/10 sm:h-80"
               allowFullScreen
             />
+            <a
+              href={CONTACT.mapLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary mt-4 w-full sm:w-auto"
+            >
+              <Navigation className="h-4 w-4" aria-hidden />
+              Open in Google Maps
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
           </Reveal>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2">

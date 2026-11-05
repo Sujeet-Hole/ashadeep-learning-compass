@@ -1,4 +1,4 @@
-// Courses page: compact hero, category filters + search, featured courses, full course grid,
+// Courses page: compact hero, course search, full course grid,
 // general FAQ and a closing call-to-action. Everything is rendered from src/data/courses.ts.
 // The active category lives in the URL (?category=...) so filtered views can be linked to.
 
@@ -10,7 +10,7 @@ import { Reveal } from "@/components/Reveal";
 import { CtaBand } from "@/components/CtaBand";
 import { FaqSection } from "@/components/Faq";
 import { CourseCard } from "@/components/courses/CourseCard";
-import { CATEGORIES_IN_USE, COURSES, FEATURED_COURSES } from "@/data/courses";
+import { CATEGORIES_IN_USE, COURSES } from "@/data/courses";
 import { COURSES_FAQS } from "@/data/faqs";
 
 export const Route = createFileRoute("/courses/")({
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/courses/")({
       {
         name: "description",
         content:
-          "Explore computer and professional skill courses at Ashadeep Computer Institute: Digital Marketing, Graphic Designing, Python, Advanced Excel, Tally Prime + GST, Cybersecurity, Data Analytics and Business Analysis.",
+          "Explore computer and professional skill courses at Ashadeep Computer Institute: Graphic Designing, Full Stack Programming, Digital Marketing and MS-CIT.",
       },
       { property: "og:title", content: "Our Courses — Ashadeep Computer Institute" },
       {
@@ -65,15 +65,6 @@ function CoursesPage() {
       resetScroll: false,
     });
 
-  const tabs = [
-    { id: "all", label: "All Courses", count: COURSES.length },
-    ...CATEGORIES_IN_USE.map((c) => ({
-      id: c.id,
-      label: c.label,
-      count: COURSES.filter((course) => course.category === c.id).length,
-    })),
-  ];
-
   return (
     <>
       <PageHero
@@ -103,46 +94,13 @@ function CoursesPage() {
         </Link>
       </PageHero>
 
-      {/* ---- Category filters + search ---- */}
+      {/* ---- Search ---- */}
       <section
         id="browse-courses"
-        aria-label="Filter courses"
+        aria-label="Search courses"
         className="container-site scroll-mt-24 pt-8 sm:scroll-mt-28 sm:pt-10"
       >
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          {/* Scrolls sideways on phones; wraps on larger screens */}
-          <div
-            role="group"
-            aria-label="Course categories"
-            className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
-          >
-            {tabs.map((tab) => {
-              const active = tab.id === activeId;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  aria-pressed={active}
-                  onClick={() => selectCategory(tab.id)}
-                  className={`inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-full px-4 text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
-                    active
-                      ? "bg-brand text-primary-foreground shadow-lg shadow-brand/25"
-                      : "bg-tint text-navy hover:bg-brand/15"
-                  }`}
-                >
-                  {tab.label}
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-[11px] ${
-                      active ? "bg-white/25" : "bg-white text-navy/70"
-                    }`}
-                  >
-                    {tab.count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-end">
           <div className="relative w-full lg:max-w-xs">
             <label htmlFor="course-search" className="sr-only">
               Search courses
@@ -156,36 +114,13 @@ function CoursesPage() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search courses, e.g. Python"
+              placeholder="Search courses, e.g. MS-CIT"
               className="form-input min-h-11 !rounded-full !pl-10"
               autoComplete="off"
             />
           </div>
         </div>
       </section>
-
-      {/* ---- Featured courses (default view only, so filtered results show straight away) ---- */}
-      {isDefaultView && FEATURED_COURSES.length > 0 && (
-        <section aria-labelledby="featured-title" className="container-site pt-10 sm:pt-12">
-          <Reveal direction="up">
-            <h2 id="featured-title" className="section-title">
-              Featured <span className="text-brand">Courses</span>
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-              A good place to start if you are not sure where to begin.
-            </p>
-          </Reveal>
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURED_COURSES.map((course, i) => (
-              <li key={course.slug}>
-                <Reveal delay={i * 80} direction="up" className="h-full">
-                  <CourseCard course={course} />
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
       {/* ---- All courses / filtered results ---- */}
       <section aria-labelledby="all-title" className="container-site pb-10 pt-10 sm:pb-12 sm:pt-12">
@@ -196,11 +131,23 @@ function CoursesPage() {
           <p className="text-sm text-muted-foreground" role="status" aria-live="polite">
             {results.length} {results.length === 1 ? "course" : "courses"}
             {q ? ` matching “${query.trim()}”` : ""}
+            {activeId !== "all" && (
+              <>
+                {" · "}
+                <button
+                  type="button"
+                  onClick={() => selectCategory("all")}
+                  className="font-semibold text-brand hover:underline"
+                >
+                  Show all courses
+                </button>
+              </>
+            )}
           </p>
         </div>
 
         {results.length > 0 ? (
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {results.map((course) => (
               <li key={course.slug}>
                 <CourseCard course={course} />

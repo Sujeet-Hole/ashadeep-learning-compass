@@ -32,7 +32,7 @@ export const COURSES_FAQS: Faq[] = [
   },
   {
     q: "Are the courses suitable for beginners?",
-    a: "Each course page lists who can join. For example, Python Programming is open to beginners in coding. For any other course, our team can advise on your starting level.",
+    a: "Each course page lists who can join. For example, MS-CIT is open to complete beginners. For any other course, our team can advise on your starting level.",
   },
   {
     q: "What is included in a course?",
